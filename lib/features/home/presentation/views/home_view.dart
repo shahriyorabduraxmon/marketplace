@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:marketplace/assets/app_colors.dart';
 import 'package:marketplace/core/extension/for_context.dart';
 import 'package:marketplace/core/services/hive_service/product_hive_service.dart';
 import 'package:marketplace/core/utils/size_config.dart';
-import 'package:marketplace/features/common/widgets/w_nav_bar.dart';
 import 'package:marketplace/features/home/domain/entity/product_entity.dart';
 import 'package:marketplace/features/home/presentation/controller/home_controller.dart';
 import 'package:marketplace/features/home/presentation/widgets/product_card.dart';

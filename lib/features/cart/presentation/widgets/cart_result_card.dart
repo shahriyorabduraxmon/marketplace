@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/assets/app_colors.dart';
-import 'package:marketplace/assets/app_icons.dart';
 import 'package:marketplace/core/extension/price_extention.dart';
-import 'package:marketplace/core/extension/svg_extension.dart';
 import 'package:marketplace/core/utils/size_config.dart';
 import 'package:marketplace/core/utils/space.dart';
-import 'package:marketplace/features/common/widgets/custom_button.dart';
-import 'package:marketplace/features/home/domain/entity/product_entity.dart';
 
 class CartResultCard extends StatelessWidget {
   const CartResultCard({super.key, required this.productCount, required this.productPrice, required this.totalPrice, required this.discount});

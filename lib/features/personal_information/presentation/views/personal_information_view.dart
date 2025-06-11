@@ -8,7 +8,6 @@ import 'package:marketplace/core/utils/space.dart';
 import 'package:marketplace/features/common/show_message/show_mesasge.dart';
 import 'package:marketplace/features/common/widgets/custom_button.dart';
 import 'package:marketplace/features/common/widgets/custom_text_field.dart';
-import 'package:marketplace/features/order_history/presentation/widgets/order_history_card.dart';
 
 class PersonalInformationView extends StatefulWidget {
   const PersonalInformationView({super.key});

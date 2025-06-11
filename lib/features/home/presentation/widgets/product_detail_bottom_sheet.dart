@@ -1,6 +1,7 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:marketplace/assets/app_colors.dart';
 import 'package:marketplace/assets/app_icons.dart';
 import 'package:marketplace/core/extension/for_context.dart';
@@ -15,6 +16,7 @@ import 'package:marketplace/core/utils/space.dart';
 import 'package:marketplace/features/cart/presentation/controller/bloc/cart_bloc.dart';
 import 'package:marketplace/features/common/show_message/show_mesasge.dart';
 import 'package:marketplace/features/home/domain/entity/product_entity.dart';
+import 'package:vibration/vibration.dart';
 
 class ProductDetailBottomSheet extends StatelessWidget {
   ProductDetailBottomSheet({super.key, required this.product});
@@ -109,15 +111,29 @@ class ProductDetailBottomSheet extends StatelessWidget {
             ),
             verticalSpace(8),
             GestureDetector(
-              onTap: () {
-                if(StorageRepository.getString(StorageKeys.firstName, defValue: '').isNotEmpty){
+              onTap: () async {
+                if (StorageRepository.getString(StorageKeys.firstName,
+                        defValue: '')
+                    .isNotEmpty) {
                   if (productCountCtr.value == 0) {
-                    context.read<CartBloc>().add(AddCartItemEvent(product: product));
+                    context
+                        .read<CartBloc>()
+                        .add(AddCartItemEvent(product: product));
                     onAnimation(widgetKey);
-                    productCountCtr.value = 1 ;
+                    productCountCtr.value = 1;
                   }
                 } else {
-                  ShowMessage.showErrorMessage(context, "Enter your name first.");
+                  ShowMessage.showErrorMessage(
+                      context, "Enter your name first.");
+                  context.pop();
+                }
+                if (await Vibration
+                    .hasCustomVibrationsSupport()) {
+                Vibration.vibrate(
+                pattern: [0, 1],
+                intensities: [0, 135],
+                duration: 1,
+                );
                 }
               },
               child: Container(
@@ -137,13 +153,24 @@ class ProductDetailBottomSheet extends StatelessWidget {
                         children: [
                           if (count > 0)
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 if (count == 1) {
-                                  context.read<CartBloc>().add(DeleteCartItemEvent(product: product));
+                                  context.read<CartBloc>().add(
+                                      DeleteCartItemEvent(product: product));
                                   productCountCtr.value = count - 1;
                                 } else {
-                                  context.read<CartBloc>().add(UpdateCartItemEvent(count: count - 1, product: product));
+                                  context.read<CartBloc>().add(
+                                      UpdateCartItemEvent(
+                                          count: count - 1, product: product));
                                   productCountCtr.value = count - 1;
+                                }
+                                if (await Vibration
+                                        .hasCustomVibrationsSupport()) {
+                                  Vibration.vibrate(
+                                    pattern: [0, 1],
+                                    intensities: [0, 135],
+                                    duration: 1,
+                                  );
                                 }
                               },
                               child: AppIcons.minus.svg(
@@ -156,13 +183,6 @@ class ProductDetailBottomSheet extends StatelessWidget {
                               key: addKey,
                               badgeOptions: const BadgeOptions(active: false),
                               icon: GestureDetector(
-                                // onTap: () {
-                                //   if (productCountCtr.value == 0) {
-                                //     context.read<CartBloc>().add(AddCartItemEvent(product: product));
-                                //     onAnimation(widgetKey);
-                                //     productCountCtr.value = 1 ;
-                                //   }
-                                // },
                                 child: Text(count > 0 ? "$count" : "Add Cart",
                                     style: Theme.of(context)
                                         .textTheme
@@ -177,10 +197,20 @@ class ProductDetailBottomSheet extends StatelessWidget {
                           ),
                           if (count > 0)
                             GestureDetector(
-                              onTap: () {
-                                context.read<CartBloc>().add(UpdateCartItemEvent(count: count + 1, product: product));
+                              onTap: () async {
+                                context.read<CartBloc>().add(
+                                    UpdateCartItemEvent(
+                                        count: count + 1, product: product));
                                 onAnimation(widgetKey);
                                 productCountCtr.value = count + 1;
+                                if (await Vibration
+                                    .hasCustomVibrationsSupport()) {
+                                Vibration.vibrate(
+                                pattern: [0, 1],
+                                intensities: [0, 255],
+                                duration: 1,
+                                );
+                                }
                               },
                               child: AppIcons.plus.svg(
                                   height: wi(32),

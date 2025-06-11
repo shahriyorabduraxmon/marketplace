@@ -5,7 +5,6 @@ import 'package:marketplace/core/services/theme_service/theme_service.dart';
 import 'package:marketplace/features/cart/presentation/controller/bloc/cart_bloc.dart';
 import 'assets/app_theme.dart';
 import 'core/navigation/app_routs.dart';
-import 'core/utils/log_service.dart';
 import 'core/utils/size_config.dart';
 
 class MyApp extends StatefulWidget {
@@ -19,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    initial(); // ✅ bu yerda chaqirish kerak
+    initial();
   }
 
   void initial() {

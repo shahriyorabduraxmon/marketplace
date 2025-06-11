@@ -9,6 +9,7 @@ import 'package:marketplace/core/utils/space.dart';
 import 'package:marketplace/features/cart/presentation/controller/bloc/cart_bloc.dart';
 import 'package:marketplace/features/common/widgets/custom_button.dart';
 import 'package:marketplace/features/home/domain/entity/product_entity.dart';
+import 'package:vibration/vibration.dart';
 
 class CartCard extends StatelessWidget {
   const CartCard({super.key, required this.product});
@@ -66,11 +67,19 @@ class CartCard extends StatelessWidget {
             ),
             horizontalSpace(8),
             CustomButton(
-              onTap: (){
+              onTap: ()async{
                 if(product.cartCount == 1){
                   context.read<CartBloc>().add(DeleteCartItemEvent(product: product));
                 } else {
                   context.read<CartBloc>().add(UpdateCartItemEvent(count: product.cartCount - 1, product: product));
+                }
+                if (await Vibration
+                    .hasCustomVibrationsSupport()) {
+                Vibration.vibrate(
+                pattern: [0, 1],
+                intensities: [0, 135],
+                duration: 1,
+                );
                 }
               },
               height: wi(36),
@@ -103,8 +112,16 @@ class CartCard extends StatelessWidget {
             ),
             horizontalSpace(2),
             CustomButton(
-              onTap: (){
+              onTap: ()async{
                 context.read<CartBloc>().add(UpdateCartItemEvent(count: product.cartCount + 1, product: product));
+                if (await Vibration
+                    .hasCustomVibrationsSupport()) {
+                Vibration.vibrate(
+                pattern: [0, 1],
+                intensities: [0, 135],
+                duration: 1,
+                );
+                }
               },
               height: wi(36),
               width: wi(36),

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketplace/core/constants/constants.dart';
 import 'package:marketplace/core/dio/usecases/usecase.dart';
 import 'package:marketplace/core/services/hive_service/product_hive_service.dart';
-import 'package:marketplace/core/utils/log_service.dart';
 import 'package:marketplace/features/cart/domain/usecase/get_cart_usecase.dart';
 import 'package:marketplace/features/home/domain/entity/product_entity.dart';
 
